@@ -1,15 +1,13 @@
-package com.project.inventory;
-
+package com.project.system;
 import java.security.SecureRandom;
 import java.util.*;
-
 public class Book extends InventoryItem<Book> implements Product{
     private String author;
     private String publisher;
-    private String isbn;
+    private int isbn;
 
     private InventoryWareHouse inventoryWareHouse = new InventoryWareHouse();
-    public Book(String name, double price, int quantity,int specId, String author, String publisher, String isbn){
+    public Book(String name, double price, int quantity,int specId, String author, String publisher, int isbn){
         super(name,price,quantity, specId);
         this.author = author;
         this.publisher = publisher;
@@ -27,20 +25,35 @@ public class Book extends InventoryItem<Book> implements Product{
     public String getPublisher(){
         return publisher;
     }
-    public String getIsbn(){
+    public int getIsbn(){
         return isbn;
     }
     @Override
-    public void removeProduct(int specId) {
-        List<InventoryItem> listOfBooks = inventoryWareHouse.getListOfClothes();
-
-        for(InventoryItem theBooks: listOfBooks){
-            if(theBooks.getSpecId() == specId){
+    public void removeProduct(int isbn) {
+        List<InventoryItem> listOfBooks = inventoryWareHouse.getBookList();
+        ListIterator<InventoryItem> iterator = (ListIterator<InventoryItem>) listOfBooks.listIterator();
+        /*for(InventoryItem theBooks: listOfBooks){
+            if(theBooks.getSpecId() == isbn){
                 //delete that product from the list
-
-
+                //how to remove the specific the book from data structure.
+            }
+        }*/
+        while(iterator.hasNext()){
+            InventoryItem book = iterator.next();
+            if(book instanceof Book){
+                Book theBook = (Book)book;
+                if(theBook.getIsbn() == isbn){
+                    System.out.println("After deleting: " + inventoryWareHouse.getBookList().toString());
+                    iterator.remove();
+                    System.out.println("it reaches here");
+                    break;
+                }else {
+                    System.out.println("Sorry couldn't find the isbn number: ");
+                }
             }
         }
+        System.out.println("After deleting: " + inventoryWareHouse.getBookList().toString());
+
     }
     @Override
     public String getDetails(){
@@ -56,7 +69,6 @@ public class Book extends InventoryItem<Book> implements Product{
                     return "Book: " + getName() + "\nAuthor: " + "\nPublisher: " + publisher + "\nISBN: " + isbn;
                 }
             }
-
         }
         return "found nothing";
     }
@@ -65,12 +77,15 @@ public class Book extends InventoryItem<Book> implements Product{
         System.out.println("Adding books to the warehouse");
         //Only add the book to the warehouse if there is not any duplicate spec Id and the ISBN
         //if there is some duplicate specID and isbn immediately return false or print message
-        if(theBook.detectDuplicateSpecId(theBook.getSpecId()) && checkIfISBNExist(theBook.getIsbn())){
-            inventoryWareHouse.addClothesToWareHouse(theBook);
+        if(checkIfISBNExist(theBook.getIsbn())) {
+
+            inventoryWareHouse.addBooksToWareHouse(theBook);
+            System.out.println("it touched in this line");
+        }else{
+            System.out.println("Sorry there is already a duplicate value, your id and isbn should be unique");
         }
-        System.out.println("Sorry there is already a duplicate value, your id and isbn should be unique");
     }
-    public String generateISBN() throws Exception {
+   /* public String generateISBN() throws Exception {
         String isbn = "";
         Random random = new Random();
         int length = 10;
@@ -79,41 +94,38 @@ public class Book extends InventoryItem<Book> implements Product{
                 isbn = "ISBN" + ((Integer)random.nextInt(length)).toString();
             }
         }while(checkIfISBNExist(isbn));
-
         return isbn;
-    }
+    }*/
     /**
      * this method checks whether the isbn already exist in the booksItems list
      * @param isbn
      * @return
      */
-    public boolean checkIfISBNExist(String isbn) {
-        boolean found = false;
+    public boolean checkIfISBNExist(int isbn) {
+        boolean found = true;
         List<InventoryItem> listOfBooks = inventoryWareHouse.getListOfClothes();
         for (InventoryItem theBooks : listOfBooks) {
-
             if (theBooks instanceof Book) {
                 Book theBook = (Book) theBooks;
-                if (theBook.getIsbn().equals(isbn)) {
-                    found = true;
+                if (theBook.getIsbn() == isbn) {
+                    System.out.println("it returned false");
+                    return false;
                 }
             }
-
         }
+        System.out.println("it is: " + found);
         return found;
-    }
-    public void testing(Object o){
-        if(o instanceof Electronics){
-            System.out.println("yes it is!");
-        }else{
-            System.out.println("it is not");
-        }
     }
     public void addBooks2(Book theBook){
         System.out.println("Adding book " + getName() + " to specific shelf");
-        inventoryWareHouse.addBooksToWareHouse(theBook);
+        //if the specId and isbn number doesn't match then there is no duplicate there so accept it.
+        if(checkIfISBNExist(theBook.getIsbn())){
+            inventoryWareHouse.addBooksToWareHouse(theBook);
+            inventoryWareHouse.addProductsToWareHouse(theBook);
+        }else{
+            System.out.println("Sorry there is already a duplicate value, your id and isbn should be unique");
+        }
         System.out.println("Adding books in the Book Class dsa");
-
     }
 
    /* public void addBooks2(Book theBook){
@@ -137,41 +149,42 @@ public class Book extends InventoryItem<Book> implements Product{
     }
     @Override
     public int getSpecId() {
-        return 0;
+        return 121223;
     }
+
+    @Override
+    public void updateNumberOfProductsInInventory() {
+
+    }
+
     public String searchByAuthorName(String name){
-       /* for(Book theBooks: this.booksItems){
-            if(name.equals(theBooks.getName())){
-                System.out.println("Founded");
-                return "The Author name is: " + theBooks.getAuthor();
+        List<InventoryItem> listOfBooks = inventoryWareHouse.getListOfClothes();
+        for(InventoryItem theBooks: listOfBooks) {
+            if (theBooks instanceof Book) {
+                Book theBook = (Book)theBooks;
+                if (name.equals(theBooks.getName())) {
+                    System.out.println("Founded");
+                    return "The Author name is: " + theBook.getName();
+                }
             }
         }
-        return "Didn't found the author name";*/
-        return null;
+        return "Didn't found the author name";
     }
-    public String searchByPublisher(String name){
-        return null;
-    }
+
     public String toString() {
         return "Book{" + "Name: " + this.getName() + "\n" +
                 "price: " + this.getPrice() + "\n" +
                 "author='" + this.author + "\n" +
                 ", publisher='" + publisher + '\'' +
                 ", isbn='" + isbn + '\'' +
-
-                ", inventoryWareHouse=" + inventoryWareHouse.toString()+
                 '}';
     }
-
-
     public List<Book> getBooksItems(){
         return null;
     }
-
     public void setAuthor(String author) {
         this.author = author;
     }
-
     public void totalNumberOfBooks(){
 
     }

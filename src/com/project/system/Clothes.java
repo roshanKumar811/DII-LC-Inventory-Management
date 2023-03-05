@@ -1,4 +1,4 @@
-package com.project.inventory;
+package com.project.system;
 
 import java.util.List;
 
@@ -53,6 +53,12 @@ public class Clothes extends InventoryItem<Clothes> implements Product{
     public int updateQuantity(int newQuantity) {
         return 0;
     }
+
+    @Override
+    public void updateNumberOfProductsInInventory() {
+
+    }
+
     @Override
     public int getQuantity() {
         return 0;

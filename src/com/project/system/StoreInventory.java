@@ -1,5 +1,4 @@
-package com.project.inventory;
-
+package com.project.system;
 import java.util.Scanner;
 
 public class StoreInventory {
@@ -14,17 +13,21 @@ public class StoreInventory {
         int choice;
 
         //User menu
-        do{
 
+        do{
+            //when purchasing the product the person should get the entire product details
+            System.out.println("Welcome to the Roshan's Store");
+            System.out.println("1. Purchase the product");
+            System.out.println("2. Return the Product");
+            System.out.println("3. Get Product Details");
+            System.out.println();
+            System.out.println("Enter your choice: ");
             choice = sc.nextInt();
-            // if(choice<1 || choice>5){
-            //    System.out.println("Invalid choice. Please choose 1-5");
-            // }
-        }while(choice<0); //1:08:15
+
+        }while(choice<0);
         switch(choice){
             case 1:
-                theWareHouse.createBookObject((Book) theInventory,sc);
-
+                theWareHouse.addNewBookToWareHouse((Book) theInventory,sc);
             case 2:
 
 
@@ -33,6 +36,10 @@ public class StoreInventory {
         if(choice!=8){ //1:10:16
 //            StoreInventory.printUserMenu(currentUser, sc);
         }
+    }
+
+    public static void checkOut(int productId){
+
     }
 
 }

@@ -1,5 +1,4 @@
-package com.project.inventory;
-
+package com.project.system;
 import java.util.List;
 
 public interface Product{
@@ -15,6 +14,8 @@ public interface Product{
     int updateQuantity(int newQuantity);
 
     int getSpecId();
+
+    void updateNumberOfProductsInInventory();
 
 
 

@@ -1,5 +1,4 @@
-package com.project.inventory;
-
+package com.project.system;
 import java.util.Random;
 
 public abstract class InventoryItem<T>{
@@ -12,6 +11,9 @@ public abstract class InventoryItem<T>{
         this.price = price;
         this.quantity = quantity;
         this.specId = specId;
+    }
+    public InventoryItem(){
+
     }
     public int getQuantity() {
         return quantity;
@@ -61,15 +63,5 @@ public abstract class InventoryItem<T>{
         }
         return uuid;
     }
-    public boolean detectDuplicateSpecId(Object o){
-        if(this == o){
-            return true;
-        }
-        if(o == null || o.getClass()!=getClass()){
-            return false;
-        }
-        Product product = (Product)o;
-        return product.equals(product.getSpecId());
 
-    }
 }
