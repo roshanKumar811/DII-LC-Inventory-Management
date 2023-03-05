@@ -39,7 +39,7 @@ public class InventoryWareHouse{
         int isbn = sc.nextInt();
 
         Book theBook = new Book(name, price, quantity, specId,authorName,publisher,isbn);
-        bookList.add(theBook);
+        addBooksToWareHouse(theBook);
         addProductsToWareHouse(theBook);
 
     }
@@ -113,4 +113,34 @@ public class InventoryWareHouse{
 
     }
 
+    public static void purchaseTheProduct(){
+
+
+
+    }
+    //gives the information on the product they choose
+    public void getSpecificProductDetails(InventoryItem inventoryItem) {
+
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the product you want to get information: ");
+        String productName = scan.next();
+        while (true) {
+            if (productName == "Book") {
+                System.out.println("Enter the Author name: ");
+                String authorName = scan.next();
+                System.out.println("Enter the isbn number: ");
+                Book theBook = (Book) inventoryItem;
+                int isbnNumber = scan.nextInt();
+
+                if(authorName.equals(theBook.getName()) && isbnNumber == ((Book) theBook).getIsbn()){
+                    theBook.getDetails();
+                }
+            }else if(productName == "Clothes"){
+                System.out.println("Enter the clothes size you want: ");
+                
+            }
+        }
+
+    }
 }

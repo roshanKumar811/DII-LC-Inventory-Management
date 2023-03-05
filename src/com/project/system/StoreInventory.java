@@ -27,8 +27,11 @@ public class StoreInventory {
         }while(choice<0);
         switch(choice){
             case 1:
-                theWareHouse.addNewBookToWareHouse((Book) theInventory,sc);
+                theWareHouse.purchaseTheProduct();
             case 2:
+                theWareHouse.addNewBookToWareHouse((Book) theInventory,sc);
+            case 3:
+                theWareHouse.getSpecificProductDetails();
 
 
         }
