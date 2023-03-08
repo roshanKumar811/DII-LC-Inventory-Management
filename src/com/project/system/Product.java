@@ -9,13 +9,12 @@ public interface Product{
 
     String getCategory();
 
-    int updatePrice(int thePrice);
+//    void updatePrice();
 
     int updateQuantity(int newQuantity);
 
     int getSpecId();
 
-    void updateNumberOfProductsInInventory();
 
 
 

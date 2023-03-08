@@ -45,19 +45,16 @@ public class Clothes extends InventoryItem<Clothes> implements Product{
 
     }
 
-    @Override
-    public int updatePrice(int thePrice){
-        return 0;
-    }
+   /* @Override
+    public void updatePrice(double price){
+        this.price = price;
+    }*/
     @Override
     public int updateQuantity(int newQuantity) {
         return 0;
     }
 
-    @Override
-    public void updateNumberOfProductsInInventory() {
 
-    }
 
     @Override
     public int getQuantity() {

@@ -52,6 +52,7 @@ public class Book extends InventoryItem<Book> implements Product{
                 }
             }
         }
+
         System.out.println("After deleting: " + inventoryWareHouse.getBookList().toString());
 
     }
@@ -59,7 +60,7 @@ public class Book extends InventoryItem<Book> implements Product{
     public String getDetails(){
         return null;
     }
-    public String getBookDetails(String bookName, String authorName) throws Exception {
+    public String getBookDetails(String bookName, String authorName) {
         List<InventoryItem> listOfBooks = inventoryWareHouse.getListOfClothes();
         for(InventoryItem theBook: listOfBooks){
             if(theBook instanceof  Book){
@@ -139,10 +140,10 @@ public class Book extends InventoryItem<Book> implements Product{
     public String getCategory() {
         return null;
     }
-    @Override
-    public int updatePrice(int thePrice){
+   /* @Override
+    public void updatePrice(){
         return 0;
-    }
+    }*/
     @Override
     public int updateQuantity(int newQuantity) {
         return 0;
@@ -152,10 +153,7 @@ public class Book extends InventoryItem<Book> implements Product{
         return 121223;
     }
 
-    @Override
-    public void updateNumberOfProductsInInventory() {
 
-    }
 
     public String searchByAuthorName(String name){
         List<InventoryItem> listOfBooks = inventoryWareHouse.getListOfClothes();
