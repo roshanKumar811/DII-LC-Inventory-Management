@@ -41,17 +41,8 @@ public abstract class InventoryItem<T>{
     }
     public void checkNull(){
     }
-    public abstract String getDetails();
     public abstract void addProduct(T objects);
     public abstract void removeProduct(int specId);
-    /*@Override
-    public String toString() {
-        return "InventoryItem{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
-    }*/
     //generate a specific random digits for each Product and clothes;
     public String generateRandomNumberForProduct(){
         String uuid = "";
