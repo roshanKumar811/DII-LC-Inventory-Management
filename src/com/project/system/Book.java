@@ -39,17 +39,6 @@ public class Book extends InventoryItem<Book> implements Product{
         System.out.println("Adding books to the warehouse");
         inventoryWareHouse.addBookProduct(theBook);
     }
-    /*public void addBooks2(Book theBook){
-        System.out.println("Adding book " + getName() + " to specific shelf");
-        //if the specId and isbn number doesn't match then there is no duplicate there so accept it.
-        if(checkIfISBNExist(theBook.getIsbn())){
-            inventoryWareHouse.addBooksToWareHouse(theBook);
-            inventoryWareHouse.addProductsToWareHouse(theBook);
-        }else{
-            System.out.println("Sorry there is already a duplicate value, your id and isbn should be unique");
-        }
-        System.out.println("Adding books in the Book Class dsa");
-    }*/
     @Override
     public int updateQuantity(int newQuantity) {
         return 0;
