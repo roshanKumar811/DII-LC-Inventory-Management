@@ -6,13 +6,15 @@ public class Book extends InventoryItem<Book> implements Product{
     private String publisher;
     private int isbn;
     private InventoryWareHouse inventoryWareHouse;
+    private ServiceInventory inventoryService;
+    //injecting the dependencies
     public Book(String name, double price, int quantity,int specId, String author, String publisher
-            ,int isbn, InventoryWareHouse inventoryWareHouse){
+            ,int isbn, ServiceInventory inventoryService){
         super(name,price,quantity, specId);
         this.author = author;
         this.publisher = publisher;
         this.isbn = isbn;
-        this.inventoryWareHouse = inventoryWareHouse;
+        this.inventoryService = inventoryService;
     }
     public String getAuthor(){
         return this.author;
@@ -26,26 +28,11 @@ public class Book extends InventoryItem<Book> implements Product{
     @Override
     public void removeProduct(int isbn) {
         System.out.println("removing the book class-->using dependency injection");
-      this.inventoryWareHouse.removeBook(isbn);
+      this.inventoryService.removeBook(isbn);
     }
-    public String getBookDetails(String bookName, String authorName) {
-        List<InventoryItem> listOfBooks = inventoryWareHouse.getBookList();
-        for(InventoryItem theBook: listOfBooks){
-            if(theBook instanceof  Book){
-                Book theBook2 = (Book) theBook;
-                if(theBook2.getName().equals(bookName) && theBook2.getAuthor().equals(authorName)){
-                    System.out.println("Found the details");
-                    System.out.println("--------------------------------");
-                    return "Book{" + "Name: " + this.getName() + "\n" +
-                            "price: " + this.getPrice() + "\n" +
-                            "author='" + this.author + "\n" +
-                            ", publisher='" + publisher + '\'' +
-                            ", isbn='" + isbn + '\'' +
-                            '}';
-                }
-            }
-        }
-        return "found nothing";
+    //calling this method through help of dependencies
+    public void getBookDetails(String bookName, String authorName) {
+        inventoryService.getBookDetails(bookName,authorName);
     }
     @Override
     public void addProduct(Book theBook) {
